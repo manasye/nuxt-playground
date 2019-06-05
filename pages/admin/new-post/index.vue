@@ -1,6 +1,8 @@
 <template>
   <div class="admin-new-post-page">
-    <section class="new-post-form"><AdminPostForm /></section>
+    <section class="new-post-form">
+      <AdminPostForm @submit="onSubmitted" />
+    </section>
   </div>
 </template>
 
@@ -11,6 +13,16 @@ export default {
   layout: 'admin',
   components: {
     AdminPostForm
+  },
+  methods: {
+    onSubmitted(postData) {
+      this.$store
+        .dispatch('addPost', postData)
+        .then(() => {
+          this.$router.push('/admin')
+        })
+        .catch(() => {})
+    }
   }
 }
 </script>
